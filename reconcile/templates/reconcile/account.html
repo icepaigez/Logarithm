@@ -1,0 +1,88 @@
+{% include 'reconcile/home.html' %}
+
+
+{% block content %}
+<div class="container">
+		<br>
+		<div class="container">
+			<form action="{% url 'reconcile:account' %}" method="POST" enctype="multipart/form-data">
+				{% csrf_token %}
+				<input type="file" name="data_file" required="True">
+				<button class="btn btn-outline-info" type="submit">Upload</button>
+			</form>
+		</div>
+		<br>
+		<div class="container">
+			<div class="card" style="max-width: 18rem;">
+					  <div class="card-header">
+					    Your File Summary
+					  </div>
+					  <div class="card-body">
+					    <blockquote class="blockquote mb-0">
+					      <p>Total Dispensed Notes </p>
+					      <footer class="blockquote-footer">{{ data3 }}<!-- <cite title="Source Title"></cite> --></footer>
+					    </blockquote>
+					  </div>
+				</div>
+		</div>
+		
+
+		<br>
+		<br>
+	<div class="container">
+		<h5>Successful Transactions</h5>
+			<table class="table">
+				<thead class="thead-dark">
+					<tr>
+						<th scope="col">Date</th>
+						<th scope="col">Card Number</th>
+						<th scope="col">Transaction Start</th>
+						<th scope="col">Transaction End</th>
+						<th scope="col">Status</th>
+					</tr>
+				</thead>
+				<tbody>
+				{% if data %}
+					{% for item in data %}
+							<tr>
+								<td>{{ item.0 }}</td>
+								<td>{{ item.2 }}</td>
+								<td>{{ item.1 }}</td>
+								<td>{{ item.3 }}</td>
+								<td>{{ item.4 }}</td>
+							</tr>
+					{% endfor %}
+				{% endif %}
+				</tbody>
+			</table>
+			<br>
+			<br>
+			<h5>Other Transactions (Inquiry, Failed, Bank Transfers)</h5>
+			<table class="table">
+				<thead class="thead-light">
+					<tr>
+						<th scope="col">Date</th>
+						<th scope="col">Card Number</th>
+						<th scope="col">Transaction Start</th>
+						<th scope="col">Transaction End</th>
+						<th scope="col">Status</th>
+					</tr>
+				</thead>
+				<tbody>
+				{% if data %}
+					{% for item in data2 %}
+							<tr>
+								<td>{{ item.0 }}</td>
+								<td>{{ item.2 }}</td>
+								<td>{{ item.1 }}</td>
+								<td>{{ item.3 }}</td>
+								<td>{{ item.4 }}</td>
+							</tr>
+					{% endfor %}
+				{% endif %}
+				</tbody>
+			</table>
+	</div>
+</div>
+
+{% endblock %} 
