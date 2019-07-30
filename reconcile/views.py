@@ -11,10 +11,10 @@ import re
 from reconcile.forms import RegisterForm
  
 
-def homepage(request):
-	return render(request = request,
-				template_name = "reconcile/home.html",
-				context={})
+# def homepage(request):
+# 	return render(request = request,
+# 				template_name = "reconcile/home.html",
+# 				context={})
 
 
 def register(request):
@@ -25,7 +25,7 @@ def register(request):
 			username = form.cleaned_data.get("username")
 			messages.success(request, f"New account created: {username}")
 			login(request, user)
-			return redirect("reconcile:account")
+			return redirect("reconcile:login")
 
 		else:
 			for msg in form.error_messages:
@@ -45,7 +45,7 @@ def register(request):
 def logout_request(request):
 	logout(request)
 	messages.info(request, "Logged out successfully!")
-	return redirect("reconcile:homepage")
+	return redirect("reconcile:login")
 
 
 def login_request(request):
